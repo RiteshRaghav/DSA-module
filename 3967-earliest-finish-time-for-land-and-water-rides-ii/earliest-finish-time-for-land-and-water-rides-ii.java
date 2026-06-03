@@ -1,35 +1,21 @@
 class Solution {
-    public int earliestFinishTime(int[] landStartTime, int[] landDuration, int[] waterStartTime, int[] waterDuration) {
-        int result=Integer.MAX_VALUE;
-        int bestland=Integer.MAX_VALUE;
-        for(int i=0;i<landStartTime.length;i++){
-            bestland=Math.min(bestland,landStartTime[i]+landDuration[i]);
+    final static int MAX = 300005;
+
+    public int earliestFinishTime(int[] la, int[] lb, int[] wa, int[] wb) {
+        int l = MAX, w = MAX, minL = MAX, minW = MAX;
+        int n = la.length, m = wa.length;
+
+        for (int i = 0; i < n; ++i)
+            l = Math.min(l, la[i] + lb[i]);
+
+        for (int i = 0; i < m; ++i) {
+            w = Math.min(w, wa[i] + wb[i]);
+            minL = Math.min(minL, Math.max(wa[i], l) + wb[i]);
         }
 
-        for(int i=0;i<waterStartTime.length;i++){
-            if(bestland>=waterStartTime[i]){
-                result=Math.min(result,bestland+waterDuration[i]);
-            }
-            else{
-                result=Math.min(result,waterStartTime[i]+waterDuration[i]);
-            }
-        }
-  
-         
-        int bestwater=Integer.MAX_VALUE;
-        for(int i=0;i<waterStartTime.length;i++){
-            bestwater=Math.min(bestwater,waterStartTime[i]+waterDuration[i]);
-        }
+        for (int i = 0; i < n; ++i)
+            minW = Math.min(minW, Math.max(la[i], w) + lb[i]);
 
-        for(int i=0;i<landStartTime.length;i++){
-            if(bestwater>=landStartTime[i]){
-                result=Math.min(result,bestwater+landDuration[i]);
-            }
-            else{
-                result=Math.min(result,landStartTime[i]+landDuration[i]);
-            }
-        }
-
-       return result;
+        return Math.min(minW, minL);
     }
 }
