@@ -1,13 +1,13 @@
 class Solution {
-    public long maxTotalValue(int[] arr, int k) {
-        
-        int mini=Integer.MAX_VALUE;
-        int maxi=Integer.MIN_VALUE;
-        
-        for(int i=0;i<arr.length;i++){
-            maxi=Math.max(arr[i],maxi);
-            mini=Math.min(arr[i],mini);
+    public long maxTotalValue(int[] nums, int k) {
+        int maxi = Integer.MIN_VALUE;
+        int mini = Integer.MAX_VALUE;
+
+        for (int x : nums) {
+            maxi = Math.max(maxi, x);
+            mini = Math.min(mini, x);
         }
-        return (long)(maxi-mini)*k;
+
+        return 1L * k * (maxi - mini);
     }
 }
