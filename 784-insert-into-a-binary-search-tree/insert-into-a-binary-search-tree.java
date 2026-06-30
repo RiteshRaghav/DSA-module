@@ -14,41 +14,28 @@
  * }
  */
 class Solution {
-    public void attach(TreeNode root, int val){
-        if(root==null) return;
+    public TreeNode insertIntoBST(TreeNode root, int val) {
 
-        if(root.left==null && root.right==null){
-            TreeNode t=new TreeNode(val);
-            if(root.val<val){
-                root.right=t;
-                return;
+        if(root==null) return new TreeNode(val);
+
+        TreeNode curr=root;
+
+        while(true){
+            if(curr.val<val){
+                if(curr.right==null){
+                    curr.right=new TreeNode(val);
+                    break;
+                }
+                else curr=curr.right;
             }
             else{
-                root.left=t;
-                return;
+                  if(curr.left==null){
+                    curr.left=new TreeNode(val);
+                    break;
+                }
+                else curr=curr.left;
             }
         }
-        else if(root.val<val){
-            if(root.right==null){
-                TreeNode t=new TreeNode(val);
-                root.right=t;
-                return;
-            }
-            else attach(root.right,val);
-        }
-        else{
-            if(root.left==null){
-                TreeNode t=new TreeNode(val);
-                root.left=t;
-                return;
-            }
-            else attach(root.left,val);
-        }
-
-    }
-    public TreeNode insertIntoBST(TreeNode root, int val) {
-        if(root==null) return new TreeNode(val);
-        attach(root,val);
         return root;
     }
 }
